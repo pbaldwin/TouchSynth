@@ -23,9 +23,9 @@ let middle = {
 };
 
 // These are the ratios we want to use to get our color values
-let ratio = {
-  x: 360 / width,
-  y: 70 / height
+let gradientRatios = {
+  x: 3.6,
+  y: .7
 };
 
 // Max and min values of our scale
@@ -35,7 +35,7 @@ let notes = {
   max: 261.6
 };
 
-let noteRatio = (notes.max - notes.root) / width;
+let noteRatio = (notes.max - notes.root) / 100;
 
 // Get our filter frequency range
 let filter = {
@@ -43,7 +43,7 @@ let filter = {
   max: 10000
 };
 
-let filterRatio = (filter.max - filter.min) / height;
+let filterRatio = (filter.max - filter.min) / 100;
 
 // Handle touchTracker events...
 touchTracker.subscribe('pointerdown', handleDown);
@@ -88,8 +88,8 @@ function handleUp(coords) {
  */
 function handleTouch(coords) {
   let shift = {
-    x: Math.floor((coords.x - middle.x) * ratio.x),
-    y: Math.floor(100 - (coords.y * ratio.y))
+    x: Math.floor((coords.x - 50) * gradientRatios.x),
+    y: Math.floor(coords.y * gradientRatios.y)
   };
 
   let gradient = getGradient(shift);
@@ -97,7 +97,7 @@ function handleTouch(coords) {
   background.style.backgroundImage = gradient;
 
   let note = notes.root + (coords.x * noteRatio);
-  let filterFreq = filter.max - (coords.y * filterRatio);
+  let filterFreq = filter.min + (coords.y * filterRatio);
 
   synth.pitch(note);
   synth.filter(filterFreq);
