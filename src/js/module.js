@@ -1,0 +1,4 @@
+let prototype = {
+  outputs: {},
+  inputs: {},
+};

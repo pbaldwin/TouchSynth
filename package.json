@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "js": "watchify src/js/app.js -t [ babelify --presets [ es2015 ] ] -v -d -o dist/js/app.js",
+
+    "css:compile": "node-sass src/css/app.scss",
+    "css:prefix": "postcss --use autoprefixer --autoprefixer.browsers '> 5%'",
+    "css": "npm run -s css:compile | npm run -s css:prefix -- --no-map.inline -o dist/css/app.css",
+    "css:watch": "npm run css && chokidar src/css/**/*.scss -c 'npm run css'",
+
+    "browsersync": "browser-sync start --files 'dist/js/*.js, dist/css/*.css, *.html' --server './'",
+
+    "start": "concurrently -k 'npm run js' 'npm run browsersync' 'npm run css:watch'"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.18.5",
+    "browserify": "^13.3.0",
+    "chokidar-cli": "^1.2.0",
+    "concurrently": "^3.1.0",
+    "eslint": "^2.3.0",
+    "watchify": "^3.8.0",
+    "node-sass": "^3.4.2",
+    "postcss-cli": "^2.5.1"
+  }
+}
