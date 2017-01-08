@@ -46,21 +46,26 @@ function dispatchUp(e) {
 let lastTouch = null;
 
 function dispatchTouchDown(e) {
-  lastTouch = e.touches[0];
+  lastTouch = e.touches[e.touches.length - 1];
   document.body.addEventListener('touchmove', dispatchTouchDrag, { passive: false });
   xy.publish('pointerdown', coordinates(lastTouch));
   e.preventDefault();
 }
 
 function dispatchTouchDrag(e) {
-  lastTouch = e.touches[0];
+  lastTouch = e.touches[e.touches.length - 1];
   xy.publish('pointerdrag', coordinates(lastTouch));
   e.preventDefault();
 }
 
 function dispatchTouchEnd(e) {
-  document.body.removeEventListener('touchmove', dispatchTouchDrag, { passive: false });
-  xy.publish('pointerup', coordinates(lastTouch));
+  if (e.touches.length) {
+    lastTouch = e.touches[e.touches.length - 1];
+    xy.publish('pointerdrag', coordinates(lastTouch));
+  } else {
+    document.body.removeEventListener('touchmove', dispatchTouchDrag, { passive: false });
+    xy.publish('pointerup', coordinates(lastTouch));
+  }
   e.preventDefault();
 }
 
