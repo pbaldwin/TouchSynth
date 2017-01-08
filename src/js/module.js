@@ -1,4 +1,0 @@
-let prototype = {
-  outputs: {},
-  inputs: {},
-};
