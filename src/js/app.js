@@ -79,7 +79,7 @@ function handleUp() {
 function handleTouch(coords) {
   let shift = {
     x: Math.floor((coords.x - 50) * gradientRatios.x),
-    y: Math.floor(100 - (coords.y * gradientRatios.y))
+    y: Math.floor(coords.y * gradientRatios.y) + 30 // Magic number...
   };
 
   let gradient = getGradient(shift);
