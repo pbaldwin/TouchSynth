@@ -10,6 +10,11 @@
 //   return curve;
 // }
 
+/**
+ * Makes a wave shaper curve
+ * @param  {Number} amount The amount of wave shaping desired
+ * @return {Float32Array}        A Float32Array of values from -1 to 1 that represents a curve.
+ */
 function makeDistortionCurve( amount = 50 ) {
   let length = 44100;
   let curve = new Float32Array(length);
@@ -22,6 +27,15 @@ function makeDistortionCurve( amount = 50 ) {
   return curve;
 }
 
+/**
+ * Creates a filtered waveshaper node that adds distortion to an
+ * incoming signal
+ * @param  {Object} context WebAudio context object
+ *                          `let context = new window.wevAudioContext()`
+ * @param  {Number} amount  The amount level of wave shaping desired.
+ * @return {Object}         Returns a wrapper object with input,
+ *                                  connect() and controls (distotion and level)
+ */
 function makeDistortion(context, amount) {
   let distortionNode = context.createWaveShaper();
   distortionNode.curve = makeDistortionCurve(amount);
