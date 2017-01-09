@@ -1,6 +1,9 @@
+import Delay from './delay';
+
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 let lowPassFilter = audioCtx.createBiquadFilter();
+let delay = Delay(audioCtx);
 
 lowPassFilter.type = 'lowpass';
 lowPassFilter.frequency.value = 500;
@@ -28,6 +31,8 @@ oscillator2.connect(lowPassFilter);
 lowPassFilter.connect(gainNode);
 
 gainNode.connect(audioCtx.destination);
+gainNode.connect(delay.input);
+delay.connect(audioCtx.destination);
 
 // Release is null until we make it an interval
 let release = null;
