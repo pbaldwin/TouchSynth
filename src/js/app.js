@@ -12,16 +12,6 @@ const THANKS = 'Thanks.';
 
 const HUES = [180, 20];
 
-// TODO: Regenerate these numbers on window resize
-let width = window.innerWidth;
-let height = window.innerHeight;
-
-// Get the middle of our stage
-let middle = {
-  x: Math.floor(width / 2),
-  y: Math.floor(height / 2)
-};
-
 // These are the ratios we want to use to get our color values
 let gradientRatios = {
   x: 3.6,
@@ -75,7 +65,7 @@ function handleDrag(coords) {
  * @param  {Object} coords { x: `Number`, y: `Number` }
  * @return {undefined}
  */
-function handleUp(coords) {
+function handleUp() {
   title.textContent = CLICK;
   synth.gate.close();
 }
@@ -89,7 +79,7 @@ function handleUp(coords) {
 function handleTouch(coords) {
   let shift = {
     x: Math.floor((coords.x - 50) * gradientRatios.x),
-    y: Math.floor(coords.y * gradientRatios.y)
+    y: Math.floor(100 - (coords.y * gradientRatios.y))
   };
 
   let gradient = getGradient(shift);
