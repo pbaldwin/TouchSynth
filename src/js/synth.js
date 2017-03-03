@@ -7,7 +7,7 @@ let delay = Delay(audioCtx);
 
 lowPassFilter.type = 'lowpass';
 lowPassFilter.frequency.value = 500;
-lowPassFilter.Q.value = 20;
+lowPassFilter.Q.value = 5;
 
 // TODO: Make oscilator generation part of the synth initialization.
 let oscillator1 = audioCtx.createOscillator();
@@ -17,9 +17,9 @@ oscillator1.frequency.value = 261.6;
 
 let oscillator2 = audioCtx.createOscillator();
 
-oscillator2.type = 'sawtooth';
+oscillator2.type = 'triangle';
 oscillator2.frequency.value = 261.6;
-oscillator2.detune.value = 20;
+oscillator2.detune.value = 10;
 
 let gainNode = audioCtx.createGain();
 
@@ -51,7 +51,7 @@ let synth = {
    */
   pitch: (freq) => {
     oscillator1.frequency.value = freq;
-    oscillator2.frequency.value = freq;
+    oscillator2.frequency.value = freq * 2;
   },
   gate: {
     /**

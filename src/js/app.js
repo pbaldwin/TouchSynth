@@ -29,8 +29,8 @@ let noteRatio = (notes.max - notes.root) / 100;
 
 // Get our filter frequency range
 let filter = {
-  min: 50,
-  max: 10000
+  min: 200,
+  max: 6000
 };
 
 let filterRatio = (filter.max - filter.min) / 100;
